@@ -1,0 +1,24 @@
+{
+  "name": "discord_reaction_role",
+  "version": "1.0.0",
+  "description": "read the readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FissionFeline/Discord_Reaction_Role.git"
+  },
+  "keywords": [
+    "Discord",
+    "Discord_bot",
+    "reaction_roles"
+  ],
+  "author": "Furious Feline",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FissionFeline/Discord_Reaction_Role/issues"
+  },
+  "homepage": "https://github.com/FissionFeline/Discord_Reaction_Role#readme"
+}
