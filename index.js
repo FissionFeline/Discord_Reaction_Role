@@ -1,13 +1,19 @@
 // Import discord.js and create the client
-const Discord = require('discord.js')
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] })
+const { Client, Intents } = require('discord.js');
 const { token } = require('./credentials.json');
+const client = new Client({
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+});
 
-// Register an event so that when the bot is ready, it will log a messsage to the terminal
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-})
-
-
-// client.login logs the bot in and sets it up for use. You'll enter your token here.
+client.on('messageReactionAdd', async (reaction, user,message) => {
+	if (reaction.partial) {
+		try {
+			await reaction.fetch();
+		} catch (error) {
+			console.error('Something went wrong when fetching the message:', error);
+			return;
+		}
+	}
+  console.log(user.id);
+});
 client.login(token);
