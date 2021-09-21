@@ -1,6 +1,6 @@
 // Import discord.js and create the client
 const { Client, Intents } = require('discord.js');
-const { token } = require('./credentials.json');
+const { token,server_ID } = require('./credentials.json');
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
@@ -29,7 +29,7 @@ client.on('messageReactionRemove', async (reaction, user,message) => {
 		}
 	}
   console.log(user.id);
-  const myGuild = client.guilds.cache.get('796557651206864916');
+  const myGuild = client.guilds.cache.get(server_ID);
   const myRole = myGuild.roles.cache.find(role => role.name === 'red');
   const User = client.users.cache.get(user.id); 
   User.roles.add(myRole);
