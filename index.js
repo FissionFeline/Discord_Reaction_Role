@@ -29,5 +29,8 @@ client.on('messageReactionRemove', async (reaction, user,message) => {
 		}
 	}
   console.log(user.id);
+  const myGuild = client.guilds.cache.get('796557651206864916');
+  const myRole = myGuild.roles.cache.find(role => role.name === 'red');
+  user.roles.add(myRole);
 });
 client.login(token);
