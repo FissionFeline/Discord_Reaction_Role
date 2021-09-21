@@ -14,7 +14,7 @@ const GiveRole = (user_id,myGuild) => {
 const RemoveRole = (user_id,myGuild) => {
 	const myRole = myGuild.roles.cache.find(role => role.name === 'red');
 	const User = client.users.cache.get(user_id); 
-	User.roles.add(myRole);
+	User.roles.remove(myRole);
 };
 client.on('ready', () => {
 	console.log(`We are in as ${client.user.tag}!`);
