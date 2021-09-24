@@ -1,6 +1,7 @@
 // Import discord.js and create the client
 const { Client, Intents } = require('discord.js');
 const { token,server_ID } = require('./credentials.json');
+const config = require('./config.json');
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
@@ -29,7 +30,9 @@ client.on('messageReactionAdd', async (reaction, user,message) => {
 	}
   console.log(user.id);
   console.log(reaction.emoji.name);
+  console.log(config[reaction.message.guild.id][reaction.message.id]);
   console.log(reaction.message.id);
+  console.log(reaction.message.guild.id);
 });
 client.on('messageReactionRemove', async (reaction, user,message) => {
 	if (reaction.partial) {
