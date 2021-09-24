@@ -4,7 +4,6 @@ const { token,server_ID } = require('./credentials.json');
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
-const myGuild = client.guilds.cache.get(server_ID);
 
 const GiveRole = (user_id,myGuild) => {
 	const myRole = myGuild.roles.cache.find(role => role.name === 'red');
@@ -44,3 +43,6 @@ client.on('messageReactionRemove', async (reaction, user,message) => {
   //RemoveRole(user.id,myGuild);
 });
 client.login(token);
+
+//const myGuild = client.guilds.cache.get(server_ID); make it allow for like multi guils 
+//im tired 
