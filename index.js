@@ -29,6 +29,7 @@ client.on('messageReactionAdd', async (reaction, user,message) => {
 	}
   console.log(user.id);
   console.log(reaction.emoji.name);
+  console.log(reaction.message.id);
 });
 client.on('messageReactionRemove', async (reaction, user,message) => {
 	if (reaction.partial) {
