@@ -5,21 +5,10 @@ const config = require('./config.json');
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
-
-const GiveRole = (user_id,myGuild) => {
-	const myRole = myGuild.roles.cache.find(role => role.name === 'red');
-	const User = client.users.cache.get(user_id); 
-	User.roles.add(myRole);
-};
-const RemoveRole = (user_id,myGuild) => {
-	const myRole = myGuild.roles.cache.find(role => role.name === 'red');
-	const User = client.users.cache.get(user_id); 
-	User.roles.remove(myRole);
-};
 client.on('ready', () => {
 	console.log(`We are in as ${client.user.tag}!`);
 });
-client.on('messageReactionAdd', async (reaction, user,message) => {
+client.on('messageReactionAdd', async (reaction, _user,message) => {
 	if (reaction.partial) {
 		try {
 			await reaction.fetch();
@@ -28,11 +17,10 @@ client.on('messageReactionAdd', async (reaction, user,message) => {
 			return;
 		}
 	}
-  console.log(user.id);
-  console.log(reaction.emoji.name);
-  console.log(config[reaction.message.guild.id][reaction.message.id]);
-  console.log(reaction.message.id);
-  console.log(reaction.message.guild.id);
+    var TMP_config = config[reaction.message.guild.id][reaction.message.id];
+    const TPM_Guild = client.guilds.cache.get(reaction.message.guild.id);
+    const TPM_Role = TPM_Guild.roles.cache.find(role => role.name === TMP_config[reaction.emoji.name]);
+  //user.guild.roles.add(TPM_Role);
 });
 client.on('messageReactionRemove', async (reaction, user,message) => {
 	if (reaction.partial) {
@@ -43,10 +31,9 @@ client.on('messageReactionRemove', async (reaction, user,message) => {
 			return;
 		}
 	}
-  console.log(user.id);
+	var TMP_config = config[reaction.message.guild.id][reaction.message.id];
+	const TPM_Guild = client.guilds.cache.get(reaction.message.guild.id);
+	const TPM_Role = TPM_Guild.roles.cache.find(role => role.name === TMP_config[reaction.emoji.name]);
   //RemoveRole(user.id,myGuild);
 });
 client.login(token);
-
-//const myGuild = client.guilds.cache.get(server_ID); make it allow for like multi guils 
-//im tired 
