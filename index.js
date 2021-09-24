@@ -30,9 +30,6 @@ client.on('messageReactionAdd', async (reaction, user,message) => {
 	}
   console.log(user.id);
   console.log(reaction.emoji.name);
-  //console.log(message.ID);
-  //console.log(message.guild.id);
-  //GiveRole(user.id,myGuild);
 });
 client.on('messageReactionRemove', async (reaction, user,message) => {
 	if (reaction.partial) {
