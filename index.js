@@ -7,6 +7,7 @@ const client = new Client({
 });
 client.on('ready', () => {
 	console.log(`We are in as ${client.user.tag}!`);
+	client.user.setActivity("加强中国审查"); 
 });
 client.on('messageReactionAdd', async (reaction, user,message) => {
 	if (reaction.partial) {
@@ -17,14 +18,19 @@ client.on('messageReactionAdd', async (reaction, user,message) => {
 			return;
 		}
 	}
-    var TMP_config = config[reaction.message.guild.id][reaction.message.id];
-    const TPM_Guild = client.guilds.cache.get(reaction.message.guild.id);
-    const TPM_Role = TPM_Guild.roles.cache.find(role => role.name === TMP_config[reaction.emoji.name]);
-	const myGuild = client.guilds.cache.get(reaction.message.guild.id);
-	const member = myGuild.members.cache.find(member => member.id === user.id); //find the member who reacted (because user and member are seperate things)
-
-	member.roles.add(TPM_Role); //assign selected role to member
-	
+	try {
+		const TMP_config = config[reaction.message.guild.id][reaction.message.id];
+		const TPM_Guild = client.guilds.cache.get(reaction.message.guild.id);
+		if(TMP_config[reaction.emoji.name] == undefined) {
+			return;
+		}
+		const TPM_Role = TPM_Guild.roles.cache.find(role => role.name === TMP_config[reaction.emoji.name]);
+		const member = TPM_Guild.members.cache.find(member => member.id === user.id); //find the member who reacted (because user and member are seperate things)
+		member.roles.add(TPM_Role); //assign selected role to member
+	}
+	catch(error) {
+		console.error('Someone fucked up ',error)
+	}
 });
 client.on('messageReactionRemove', async (reaction, user,message) => {
 	if (reaction.partial) {
@@ -35,13 +41,18 @@ client.on('messageReactionRemove', async (reaction, user,message) => {
 			return;
 		}
 	}
-	var TMP_config = config[reaction.message.guild.id][reaction.message.id];
-    const TPM_Guild = client.guilds.cache.get(reaction.message.guild.id);
-    const TPM_Role = TPM_Guild.roles.cache.find(role => role.name === TMP_config[reaction.emoji.name]);
-	const myGuild = client.guilds.cache.get(reaction.message.guild.id);
-	const member = myGuild.members.cache.find(member => member.id === user.id); //find the member who reacted (because user and member are seperate things)
-
-	member.roles.remove(TPM_Role); //assign selected role to member
-  //RemoveRole(user.id,myGuild);
+	try {
+		const TMP_config = config[reaction.message.guild.id][reaction.message.id];
+		const TPM_Guild = client.guilds.cache.get(reaction.message.guild.id);
+		if(TMP_config[reaction.emoji.name] == undefined) {
+			return;
+		}
+		const TPM_Role = TPM_Guild.roles.cache.find(role => role.name === TMP_config[reaction.emoji.name]);
+		const member = TPM_Guild.members.cache.find(member => member.id === user.id); //find the member who reacted (because user and member are seperate things)
+		member.roles.remove(TPM_Role); //assign selected role to member
+	}
+	catch(error) {
+		console.error('Someone fucked up ',error)
+	}
 });
 client.login(token);
