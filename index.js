@@ -13,13 +13,16 @@ client.on('messageReactionAdd', async (reaction, _user,message) => {
 		try {
 			await reaction.fetch();
 		} catch (error) {
-			console.error('Something went wrong when fetching the message:', error);
+			console.error('We had a fucky wucky: ', error);
 			return;
 		}
 	}
     var TMP_config = config[reaction.message.guild.id][reaction.message.id];
     const TPM_Guild = client.guilds.cache.get(reaction.message.guild.id);
     const TPM_Role = TPM_Guild.roles.cache.find(role => role.name === TMP_config[reaction.emoji.name]);
+	const myGuild = client.guilds.cache.get(reaction.message.guild.id);
+	const us = client.users.cache.find(user => user.id === _user.id);
+	us.roles.add(TPM_Role);
   //user.guild.roles.add(TPM_Role);
 });
 client.on('messageReactionRemove', async (reaction, user,message) => {
@@ -27,7 +30,7 @@ client.on('messageReactionRemove', async (reaction, user,message) => {
 		try {
 			await reaction.fetch();
 		} catch (error) {
-			console.error('Something went wrong when fetching the message:', error);
+			console.error('We had a fucky wucky:', error);
 			return;
 		}
 	}
