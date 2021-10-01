@@ -1,6 +1,6 @@
 // Import discord.js and create the client
 const { Client, Intents, ReactionUserManager } = require('discord.js');
-const token = process.env.Cred;
+const token = process.env.key
 const config = require('./config.json');
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
